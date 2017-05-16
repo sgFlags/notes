@@ -1,0 +1,42 @@
+split-io
+https://github.com/HenkPoley/split-io-scheduler
+
+自旋锁：
+http://blog.csdn.net/tommy_wxie/article/details/7283307
+
+时间操作：
+http://blog.csdn.net/whisper_j/article/details/8025811
+
+linux各文件夹作用：
+http://www.cnblogs.com/amboyna/archive/2008/02/16/1070474.html
+
+awesome vim: github.com/amix/
+
+Xen安装
+http://bbotte.blog.51cto.com/6205307/1564187/
+
+
+xen博客
+http://www.cnblogs.com/hackboy/tag/xen/
+
+pid 到 task_struct:
+http://blog.chinaunix.net/uid-27033491-id-3293063.html
+
+
+内存回收 整体流程
+http://www.cnblogs.com/tolimit/p/5435068.html
+
+内存回收 lru链表
+http://www.cnblogs.com/tolimit/p/5447448.html
+
+
+内存管理：slab管理
+http://www.cnblogs.com/tolimit/p/4566189.html
+
+
+filebench 语法：
+https://github.com/filebench/filebench/wiki/Workload-model-language
+
+systemtap:
+http://blog.csdn.net/panfengyun12345/article/details/16858429
+http://blog.csdn.net/wangzuxi/article/details/42849053
