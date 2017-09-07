@@ -1,0 +1,41 @@
+1. $@表示目标文件 $^表示所有的依赖文件 $<表示第一个依赖文件
+
+
+2. 常用写法：
+.c.o：
+gcc -c $<
+表示：所有.o文件都是依赖于和它名字相同的.c文件
+
+例如：一个项目包含三个文件main.c mytool1.c mytool2.c, 两个头文件mytool1.h, mytool2.h
+
+最终简化写法为：
+main: main.o mytool1.o mytool2.o
+gcc -o $@ $^
+
+.c.o:
+gcc -c $<
+
+
+
+3. 另一种标准makefile写法：
+
+OBJS = main.o jianlilianbiao.o shuchulianbiao.o charujiedian.o shanchujiedian.o
+CC = gcc
+CFLAGS = -Wall -O -g
+main:$(OBJS)
+        $(CC) $(OBJS) -o main
+main.o:main.c jiandan.h
+        $(CC) $(CFLAGS) -c $< -o main.o
+jianlilianbiao.o:jianlilianbiao.c jiandan.h
+        $(CC) $(CFLAGS) -c $< -o $@
+shuchulianbiao.o:shuchulianbiao.c jiandan.h
+        $(CC) $(CFLAGS) -c $< -o $@
+charujiedian.o:charujiedian.c jiandan.h
+        $(CC) $(CFLAGS) -c $< -o $@
+shanchujiedian.o:shanchujiedian.c jiandan.h
+        $(CC) $(CFLAGS) -c $< -o $@
+
+.PHONY: clean
+clean:
+        rm *.o main
+

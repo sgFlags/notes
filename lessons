@@ -1,0 +1,6 @@
+soc : login to the class assigned server:
+        ssh -X -C wb2331@socp01.cs.columbia.edu
+        password: (just like all the other account passwd)
+
+OS:
+        https://abhijangda.wordpress.com/2013/04/14/creating-a-simple-linux-terminal-in-c/
