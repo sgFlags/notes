@@ -1,0 +1,56 @@
+1. stdin belongs to FILE*
+
+
+2. read a variable length string in c : 
+	https://stackoverflow.com/questions/16870486/how-can-i-read-an-input-string-of-unknown-length
+
+3. split a string using a delimiter : (strtok)
+	https://stackoverflow.com/questions/4513316/split-string-in-c-every-white-space
+	(after using strtok, the original string will change!!!!)
+
+4. get the current path in a c program
+	https://stackoverflow.com/questions/298510/how-to-get-the-current-directory-in-a-c-program
+
+5. get the string starting from a certain position
+	strrchr(char*, char)
+
+6. check if the file exists (or readable, writable, executable)
+	https://stackoverflow.com/questions/230062/whats-the-best-way-to-check-if-a-file-exists-in-c-cross-platform
+
+7. wait for all the children process to exit
+	https://stackoverflow.com/questions/19461744/make-parent-wait-for-all-child-processes
+
+8. check whether a directory exists
+	https://stackoverflow.com/questions/12510874/how-can-i-check-if-a-directory-exists
+
+9. check whether a string is a number
+	https://stackoverflow.com/questions/16644906/how-to-check-if-a-string-is-a-number
+
+10. how to create a pipe in c
+	https://stackoverflow.com/questions/33884291/pipes-dup2-and-exec
+
+11. how to open a file (if not exists, create and open the file):
+	https://stackoverflow.com/questions/9840629/create-a-file-if-one-doesnt-exist-c
+
+
+12. the understanding of dup2, pipe, close, stdin, stdout:
+	In the OS class, there is a chance for me to fully study and understand the essential of 
+	these commands and how they actually work here. 
+	For the pipe function, it will create a mutual file in the memory for communication between 
+	two file descripter, which will be automatically created by the pipe function, the first one
+	will be the read end and the second descripter be the write end. The kernel will store all 
+	the data the process write to the write end, and process which tries to read from the read end
+	will be blocked untill all the data written to the write end.
+	For the pipe, there could be multiple writer, so if there are two file descripter pointing to 
+	the same write end of a pipe, they could both write to that pipe file, read end will, of couse,
+	block until these two file descripter are closed.
+	"dup2(int oldfd, int newfd)" function will close the newfd if it is opened, and reopen it again
+	After that, newfd and oldfd will point to the same file(but two file descripter). If the newfd
+	is STDOUT_FILENO or STDIN_FILENO, the stdin or stdout will be closed also and reopened to point
+	to the file that oldfd point to. But the program which has printf or input will still read or
+	write from files number 0 and number 1. As a result, the data will be directed to new files that
+	the number 0 and number 1 represent.
+	Not num 13 will introduce how to reopen the stdin and stdout after closing them (Like after 
+	using a pipe or something).
+
+13. https://stackoverflow.com/questions/9084099/re-opening-stdout-and-stdin-file-descriptors-after-closing-them

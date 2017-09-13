@@ -46,3 +46,17 @@ http://blog.csdn.net/lym152898/article/details/69211302
 
 vim+ctags+cscope:
 http://blog.csdn.net/luckywang1103/article/details/44181557
+
+0~ 1~ problem
+https://unix.stackexchange.com/questions/196098/copy-paste-in-xfce4-terminal-adds-0-and-1
+
+install vim from source(vim8.0)
+https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
+
+how to check all the library linux installed:
+ldconfig -p | grep "the name of library" (using superviledge mode)
+
+how to install youcompleteme:
+http://blog.csdn.net/chenyyhh92/article/details/52464101
+(ycm_core cannot be found after building, but it works)
+

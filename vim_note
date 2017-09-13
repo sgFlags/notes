@@ -1,1 +1,4 @@
 n== (n为行数）可以将几行代码格式化
+
+2.  shift + a : move the cursor to the end of line and into insert mode (in normal node)
+    shift + i : move the cursor to the start of line and into insert mode (in normal mode)

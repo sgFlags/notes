@@ -1,0 +1,4 @@
+du -ah : can used to see the size of the folder
+df -h : can used to see the size of the disk
+
+find -iname : can used to ignore case of letter
