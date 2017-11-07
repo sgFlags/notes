@@ -1,0 +1,46 @@
+6.13:
+	When we have only one runqueue, there will be strong race condition happening. All the
+	CPUs have to grab a lock when they want to access the tasks in the runqueue. If we have
+	multiple runqueues for each CPU, then we don't need to worry about that since all the
+	CPUs will just handle their own runqueue when they want to schedule. However, having
+	multiple runqueues also mean that we have to have a kind of load balancing mechanism so
+	that the CPU resources won't be wasted. And the OS also need to have a function to assign
+	the tasks into different CPUs when they become runnable, which is also a sort of overhead.
+
+6.16
+	a)
+
+	FCFS:
+	    Process: 	 P1     P2  P3		  P4	     P5
+	    time:	0______2___3____________11_________15__________20
+
+	SJF:
+	    Process:     P2  P1	    P4	    P5        P3
+	    time:	0___1______3_______7________12_________________20
+
+	nonpreemptive priority:
+	    Process:     P3		      P5	 P1   P4     P2
+	    time:	0____________________8_________13___15_____19__20
+
+	RR:
+	    Process:	 P1  P2 P3  P4  P5  P3   P4  P5   P3   P5   P3
+	    time:	0___2__3___5___7___9___11__13___15___17___18___20
+
+
+	b)
+
+	Get all the information from a), turnaround time is amount of time from a task comes
+	to its end.
+	FCFS:
+		P1: 2	 P2: 3	  P3: 11     P4: 15    P5: 20
+	SJF:
+		P1: 3	 P2: 1	  P3: 20     P4: 7     P5: 12
+	nonpreemptive priority:
+		P1: 15   P2: 20   P3: 8      P4: 7     P5: 13
+	RR:
+		P1: 2    P2: 3    P3: 20     P4: 13    P5: 18
+
+
+	c)
+
+	Waiting time is sdfs
