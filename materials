@@ -11,6 +11,8 @@ linux各文件夹作用：
 http://www.cnblogs.com/amboyna/archive/2008/02/16/1070474.html
 
 awesome vim: github.com/amix/
+            (important hint for it: let b:syntastic_mode="passive" (close the syntastic autochecking)
+             remove lightline.vim plugin so that the vim toolbar will not disappear)
 
 Xen安装
 http://bbotte.blog.51cto.com/6205307/1564187/
