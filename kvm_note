@@ -2,3 +2,5 @@
     http://blog.csdn.net/winceos/article/details/49930545
 2. kvm_dev_ioctl is the function to initiate kvm module in the kernel
 3. vcpu_load, vcpu_put
+4. how to write syscall in x86 (different from arm)
+	http://blog.csdn.net/VevoLiang/article/details/53471519
