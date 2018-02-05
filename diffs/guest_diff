@@ -1,0 +1,84 @@
+diff --git a/linux/arch/x86/entry/syscalls/syscall_64.tbl b/linux/arch/x86/entry/syscalls/syscall_64.tbl
+index e93ef0b..22d674c 100644
+--- a/linux/arch/x86/entry/syscalls/syscall_64.tbl
++++ b/linux/arch/x86/entry/syscalls/syscall_64.tbl
+@@ -338,6 +338,7 @@
+ 329	common	pkey_mprotect		sys_pkey_mprotect
+ 330	common	pkey_alloc		sys_pkey_alloc
+ 331	common	pkey_free		sys_pkey_free
++332     common  vcpu_info               sys_vcpu_info
+ 
+ #
+ # x32-specific system call numbers start at 512 to avoid cache impact
+diff --git a/linux/arch/x86/include/asm/syscalls.h b/linux/arch/x86/include/asm/syscalls.h
+index 91dfcaf..8d54853 100644
+--- a/linux/arch/x86/include/asm/syscalls.h
++++ b/linux/arch/x86/include/asm/syscalls.h
+@@ -51,5 +51,8 @@
+ asmlinkage long sys_mmap(unsigned long, unsigned long, unsigned long,
+ 			 unsigned long, unsigned long, unsigned long);
+ 
++/* e6998 */
++asmlinkage int sys_vcpu_info(void);
++
+ #endif /* CONFIG_X86_32 */
+ #endif /* _ASM_X86_SYSCALLS_H */
+diff --git a/linux/arch/x86/kernel/Makefile b/linux/arch/x86/kernel/Makefile
+index 581386c..58b7635 100644
+--- a/linux/arch/x86/kernel/Makefile
++++ b/linux/arch/x86/kernel/Makefile
+@@ -52,7 +52,7 @@ obj-$(CONFIG_SYSFS)	+= ksysfs.o
+ obj-y			+= bootflag.o e820.o
+ obj-y			+= pci-dma.o quirks.o topology.o kdebugfs.o
+ obj-y			+= alternative.o i8253.o pci-nommu.o hw_breakpoint.o
+-obj-y			+= tsc.o tsc_msr.o io_delay.o rtc.o
++obj-y			+= tsc.o tsc_msr.o io_delay.o rtc.o vcpu_info.o
+ obj-y			+= pci-iommu_table.o
+ obj-y			+= resource.o
+ 
+diff --git a/linux/arch/x86/kernel/vcpu_info.c b/linux/arch/x86/kernel/vcpu_info.c
+new file mode 100644
+index 0000000..cf94dd9
+--- /dev/null
++++ b/linux/arch/x86/kernel/vcpu_info.c
+@@ -0,0 +1,26 @@
++#include <linux/kvm_para.h>
++#include <asm/hypervisor.h>
++#include <asm/kvm_guest.h>
++#include <asm/syscalls.h>
++#include <linux/cpu.h>
++
++int vcpu_info(int vcpu_id)
++{
++	int ret = 0;
++
++	ret = kvm_hypercall1(KVM_HC_X86_VCPU_INFO, vcpu_id);
++	return ret;
++}
++
++asmlinkage int sys_vcpu_info(void)
++{
++	int ret = 0;
++	int i;
++
++	for_each_online_cpu(i) {
++		ret = vcpu_info(i);
++		if (ret)
++			return ret;
++	}
++	return ret;
++}
+diff --git a/linux/include/uapi/linux/kvm_para.h b/linux/include/uapi/linux/kvm_para.h
+index bf6cd7d..992b8b1 100644
+--- a/linux/include/uapi/linux/kvm_para.h
++++ b/linux/include/uapi/linux/kvm_para.h
+@@ -24,6 +24,9 @@
+ #define KVM_HC_MIPS_EXIT_VM		7
+ #define KVM_HC_MIPS_CONSOLE_OUTPUT	8
+ 
++/* e6998 */
++#define KVM_HC_X86_VCPU_INFO	9
++
+ /*
+  * hypercalls use architecture specific
+  */

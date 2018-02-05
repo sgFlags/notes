@@ -1,0 +1,78 @@
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index e52c908..e8bbf61 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -6105,6 +6105,48 @@ static void kvm_pv_kick_cpu_op(struct kvm *kvm, unsigned long flags, int apicid)
+ 	kvm_irq_delivery_to_apic(kvm, NULL, &lapic_irq, NULL);
+ }
+ 
++/* e6998 */
++static int kvm_vcpu_info(struct kvm *kvm, unsigned long vcpu_id)
++{
++	struct kvm_vcpu *vcpu;
++	pid_t pid;
++	struct kvm_regs kvm_regs;
++	u64 nr_exits;
++
++	if (vcpu_id >= atomic_read(&kvm->online_vcpus))
++		return -EINVAL;
++
++	/* lock ?? */
++	/* vcpu_load? */
++	/* vcpu->srcu_idx = srcu_read_lock(&kvm->srcu); */
++	mutex_lock(&kvm->lock);
++	kvm_get_kvm(kvm);
++	vcpu = kvm_get_vcpu_by_id(kvm, vcpu_id);
++	if (!vcpu)
++		return -EINVAL;
++	rcu_read_lock();
++	pid = pid_vnr(vcpu->pid);
++	kvm_arch_vcpu_ioctl_get_regs(vcpu, &kvm_regs);
++	nr_exits = vcpu->stat.exits;
++	rcu_read_unlock();
++	kvm_put_kvm(kvm);
++	mutex_unlock(&kvm->lock);
++	trace_printk("cpu %lu:\n", vcpu_id);
++	trace_printk("\tpid\t%d\n", pid);
++	trace_printk("\tgeneral purpose registers:\n");
++	trace_printk("\t\teax\t%llu\n", kvm_regs.rax);
++	trace_printk("\t\tebx\t%llu\n", kvm_regs.rbx);
++	trace_printk("\t\tecx\t%llu\n", kvm_regs.rcx);
++	trace_printk("\t\tedx\t%llu\n", kvm_regs.rdx);
++	trace_printk("\t\tesi\t%llu\n", kvm_regs.rsi);
++	trace_printk("\t\tedi\t%llu\n", kvm_regs.rdi);
++	trace_printk("\t\tebp\t%llu\n", kvm_regs.rbp);
++	trace_printk("\t\tesp\t%llu\n", kvm_regs.rsp);
++	trace_printk("\tnumber of exits: %llu\n\n", nr_exits);
++
++	return 0;
++}
++
+ void kvm_vcpu_deactivate_apicv(struct kvm_vcpu *vcpu)
+ {
+ 	vcpu->arch.apicv_active = false;
+@@ -6151,6 +6193,10 @@ int kvm_emulate_hypercall(struct kvm_vcpu *vcpu)
+ 		kvm_pv_kick_cpu_op(vcpu->kvm, a0, a1);
+ 		ret = 0;
+ 		break;
++	/* e6998 */
++	case KVM_HC_X86_VCPU_INFO:
++		ret = kvm_vcpu_info(vcpu->kvm, a0);
++		break;
+ 	default:
+ 		ret = -KVM_ENOSYS;
+ 		break;
+diff --git a/include/uapi/linux/kvm_para.h b/include/uapi/linux/kvm_para.h
+index bf6cd7d..a8c0794 100644
+--- a/include/uapi/linux/kvm_para.h
++++ b/include/uapi/linux/kvm_para.h
+@@ -24,6 +24,9 @@
+ #define KVM_HC_MIPS_EXIT_VM		7
+ #define KVM_HC_MIPS_CONSOLE_OUTPUT	8
+ 
++/* e6998 */
++#define KVM_HC_X86_VCPU_INFO    9
++
+ /*
+  * hypercalls use architecture specific
+  */
