@@ -4,3 +4,8 @@
 3. vcpu_load, vcpu_put
 4. how to write syscall in x86 (different from arm)
 	http://blog.csdn.net/VevoLiang/article/details/53471519
+
+5. kvm_vcpu_ioctl to see how to get registers and pid 
+6. pid_vnr get pid
+7. get cpu kvm_get_vcpu_by_id
+8. exit number vcpu->stat.exits
