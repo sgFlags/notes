@@ -21,3 +21,42 @@ $1～$n
 
 
 [ -n $1 ]:即第一个参数不为null 
+
+unset 可以删除变量
+
+获取字符串长度
+string="abcd"
+echo ${#string} #输出 4
+
+
+提取子字符串
+以下实例从字符串第 2 个字符开始截取 4 个字符：
+string="runoob is a great site"
+echo ${string:1:4} # 输出 unoo
+
+
+cut命令（字符串操作重要command)
+(cut所指定的列下标从1开始计算）
+https://www.cnblogs.com/Spiro-K/p/6361646.html
+
+expr match $string 正则表达式 
+此命令可以找到string变量从头开始和正则表达式匹配的字符串的长度，如果在正则表达式中有了小括号，则代表不打印长度，而是将和括号中正则表达式部分的匹配的字符串输出
+
+替换
+%s/正则表达式/目标字符串/g
+其中，%s代表全文替换，g代表
+
+
+shell中正则表达式
+http://blog.51cto.com/13466287/2065604
+
+字符串替换
+第三种模式：${var/pattern/pattern}表示将var字符串的第一个匹配的pattern替换为另一个pattern。。        
+第四种模式：${var//pattern/pattern}表示将var字符串中的所有能匹配的pattern替换为另一个pattern.
+
+shell大小写敏感
+
+shell中，双小括号可以写算术表达式，双中括号可以写字符串匹配之类的表达式
+
+awk命令（脚本）详解
+http://www.runoob.com/linux/linux-comm-awk.html
