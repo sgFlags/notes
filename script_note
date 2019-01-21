@@ -107,3 +107,6 @@ tr -d 可以删除输入中的某个字符
 关于fstab文件的讲解：https://www.cnblogs.com/qiyebao/p/4484047.html
 
 25. dumpe2fs命令可以查看各种关于磁盘的信息。基本上-h选项常用，是查看某分区的超级块信息
+
+26. ~/.bashrc同时是login shell和non login shell必须执行的脚本
+
