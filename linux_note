@@ -3,3 +3,9 @@
 2. vmlinuz-4.18.0之类的就是linux kernel，z代表这个内核是被压缩的
 
 3. 在/boot文件夹中，vmlinuz是内核，initramfs/initrd是在boot时加载的临时操作系统，config是内核配置，System.map是用来debug用的系统符号表
+
+4. echo 3 > /proc/sys/vm/drop_caches可以清除掉所有的page cache
+
+5. cat /proc/meminfo可以看所有的memory的使用情况
+
+6. 

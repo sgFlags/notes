@@ -1,13 +1,35 @@
-本地连接可以说指的就是计算机网卡和调解制配器之间的连接，调解制配器和外界网络之间还需要打通一条连接才可以连接外网
+1. 本地连接可以说指的就是计算机网卡和调解制配器之间的连接，调解制配器和外界网络之间还需要打通一条连接才可以连接外网
 
-/etc/network/interfaces 是ubuntu用来设置网卡、网桥等的地方
+2. /etc/network/interfaces 是ubuntu用来设置网卡、网桥等的地方
 qemu-kvm -hda /home/bai/study/ubuntu10.img -m 1024 -netdev tap,script=/etc/qemu-ifup,downscript=no,id=net0 -device virtio-net-pci,netdev=net0,mac=00:11:22:33:44:AB
 
 
-qemu-ifup脚本文件:
+3. qemu-ifup脚本文件:
 #! /bin/sh  
 switch=br0
 ifconfig $1 up  #ip link set $1 up  
 brctl addif ${switch} $1
 
-其中，$1是虚拟机的网卡，br0是宿主机的网桥，网桥需要自行在/etc/network/interfaces中进行设置（包括ip等）
+4. 其中，$1是虚拟机的网卡，br0是宿主机的网桥，网桥需要自行在/etc/network/interfaces中进行设置（包括ip等）
+
+5. To bring a network connection up and assign a static address, you can do:
+sudo /sbin/ifconfig eth0 up 192.168.1.100
+
+6. To bring it up and get it an assigned address from a DHCP server, you can do:
+sudo /sbin/ifconfig eth0 up
+sudo /sbin/dhclient eth0
+
+7. ip application uses netlink socket so it is more efficient than ifconfig, which uses ioctl system call.
+some usage example:
+1) Show information for all network interfaces:
+ip link
+2) Show information for the eth0 network interface:
+ip -s link show eth0
+3) Set the IP address for eth0:
+sudo ip addr add 192.168.1.7 dev eth0
+4) Bring eth0 down:
+sudo ip link set eth0 down
+5) Set the MTU to 1480 bytes for eth0:
+sudo ip link set eth0 mtu 1480
+6) Set the networking route:
+sudo ip route add 172.16.1.0/24 via 192.168.1.5

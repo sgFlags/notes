@@ -1,2 +1,4 @@
 1. how to use different functions of paging in the linux
 	https://www.kernel.org/doc/gorman/html/understand/understand006.html
+
+2. The memory of kernel, as opposed to the one used by applications, is never swapped.
