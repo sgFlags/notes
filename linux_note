@@ -8,4 +8,91 @@
 
 5. cat /proc/meminfo可以看所有的memory的使用情况
 
-6. 
+6. dmesg -w 可以持续性地查看内核的输出
+
+7. debian, ubantu系系统使用dpkg来管理软件包，dpkg --listfiles可以列出所有这个软件包的文件
+
+8. dpkg, yum软件包管理软件常用命令
+Operation	RPM	deb
+Install a package	rpm -i foo.rpm	dpkg --install foo.deb
+Install a package with dependencies from repository	yum install foo	apt-get install foo
+Remove a package	rpm -e foo.rpm	dpkg --remove foo.deb
+Remove a package and dependencies using a repository	yum remove foo	apt-get remove foo
+Update package to a newer version	rpm -U foo.rpm	dpkg --install foo.deb
+Update package using repository and resolving dependencies	yum update foo	apt-get install foo
+Update entire system	yum update	apt-get dist-upgrade
+Show all installed packages	rpm -qa or yum list installed	dpkg --list
+Get information about an installed package including files	rpm -qil foo	dpkg --listfiles foo
+Show available packages with “foo” in name	yum list foo	apt-cache search foo
+Show all available packages	yum list	apt-cache dumpavail foo
+What package does a file belong to?	rpm -qf file	dpkg --search file
+
+9. /etc/passwd文件是用来保存所有用户相关的权限信息，例如这一行：
+bai:x:1000:1000:bai,,,:/home/bai:/bin/bash
+其中，以冒号相隔的每一个数据分别是用户名：密码（加密后）：ID号（用户ID号从1000开始，低于1000的全都是特权以及特殊用户）：组ID号：home路径：此用户默认的shell
+
+10. adduser命令可以增加一个新的user，可以使用passwd命令为某个用户设置密码, userdel命令可以删除一个用户，但是只有加上-r选项才会在同时删除此用户的/home目录
+
+11. groupadd命令可以增加一个新的group，usermod -aG 命令可以将用户增加到一个新的组中，如usermod -aG newgroupname username，group username可以查看此用户所在的组名字，从组中删除掉一个用户比较特别，需要你使用usermod -G命令将想为用户保留的所有的组都列出来，然后不在这个组列表中的组自然用户就不属于它了
+
+12. find -newer 选项可以过滤所有比newer选项后面的文件更加新修改的文件，在find后面可以加上其他命令的。-type选项可以按照类型在目标路径找文件
+
+13. locate是一个用来快速定位文件的命令，它是通过在一个以天为单位自动更新的数据库中找文件来定位目标文件的，所以很快（On most systems, this is done by a background cron job, usually daily. To force an update, you need to do: sudo updatedb）
+
+14. grep命令：
+	-e 选项可以填写pattern，如果用了多次-e选项，则相当于pattern1 or pattern2 -v选项可以选出和pattern不相同的所有行
+
+15. sed命令：
+	用来替换字符串，s/string1/string2 可以将所有目标文件的所有行的第一个“string1”替换成“string2”，如果想替换所有的string1，则要用s/string1/string2/g。如果有多个字符串需要替换，则使用多次-e选项即可
+	如果有多个替换的目标，可以讲它们编辑到一个文件filename中，而后使用-f filename来进行替换
+	例如：
+	$ cat scriptfile
+
+	s/pig/cow/g
+	s/dog/cat/g
+	s/frog/toad/g
+
+	$ sed -f scriptfile < file > newfile
+
+16. tac, cat命令：
+	cat命令可以将多个input连接到一起重定向到另一个新文件中，tac命令可以将一个输入的所有行颠倒顺序，但是每一行的内容都不变
+	cat从控制台输入获取信息:
+	cat can be used to read from standard input (such as the terminal window) if no files are specified. You can use the > operator to create and add lines into a new file, and the >> operator to append lines (or files) to an existing file. We mentioned this when talking about how to create files without an editor.
+To create a new file, at the command prompt, type cat > <filename> and press the Enter key.
+This command creates a new file and waits for the user to edit/enter the text. After you finish typing the required text, press Ctrl-D at the beginning of the next line to save and exit the editing.
+Another way to create a file at the terminal is cat > <filename> << EOF. A new file is created and you can type the required input. To exit, enter EOF at the beginning of a line.
+Note that EOF is case sensitive. One can also use another word, such as STOP.
+
+17. sort命令
+	-r 选项是降序排列，-k n 是按照第n个域的大小排序
+
+18. uniq命令
+	可以删掉duplicate的行，但是需要所有相同的行连在一起，可以与sort命令连用，-c选项可以数出相同的行的数量
+
+
+19. paste命令
+	可以将两个文件按照行连接在一起（file1的第一行和file2的第一行变成output的第一行），-d选项可以指定分隔符
+
+20. join命令
+	将两个文件像数据库的表那样join起来
+
+21. split命令
+	可以将一个大文件变成许多小文件
+
+22. strings命令
+	strings is used to extract all printable character strings found in the file or files given as arguments. It is useful in locating human-readable content embedded in binary files; for text files, you can just use grep.
+
+23. wc命令
+	wc命令可以数单词个数，-l选项可以数行数，-c选项可以数字节数，-w选项可以数单词数
+
+24. loopback file
+	把一个文件当做一个块设备来使用，此文件便叫做loopback file，因为这个file里面实际上是有一个文件系统的，如果再次挂载它并格式化它，则loopback的含义更加容易理解了
+
+25. NFS mount
+	You can also mount NFS (Network File Systems) as in:
+	$ sudo mount 192.168.1.100:/var/ftp/pub /mnt
+
+26. linux动态链接库中不同命令的含义和区别
+libmyfuncs.so.1.0 - The actual shared library.
+libmyfuncs.so.1 - The name included in the soname field of the library. Used by the executable at runtime to find the latest revision of the v. 1myfuncs library.
+libmyfuncs.so - Used by gcc to resolve symbol names in the library at link time when the executable is created. 

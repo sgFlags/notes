@@ -110,3 +110,22 @@ tr -d 可以删除输入中的某个字符
 
 26. ~/.bashrc同时是login shell和non login shell必须执行的脚本
 
+27. script中set命令
+	There are a number of options that can be used for debugging purposes:
+	set -n (bash -n) just checks for syntax
+	set -x (bash -x) echos all commands after running them
+	set -v (bash -v) echos all commands before running them
+	set -u (bash -u) causes the shell to treat using unset variables as an error
+	set -e (bash -e) causes the script to exit immediately upon any non-zero exit status
+
+28. file conditions(test)
+-e file	file exists?
+-d file	file is a directory?
+-f file	file is a regular file?
+-s file	file has non-zero size?
+-g file	file has sgid set?
+-u file	file has suid set?
+-r file	file is readable?
+-w file	file is writeable?
+-x file	file is executable?
+

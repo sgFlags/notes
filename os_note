@@ -2,3 +2,11 @@
 	https://www.kernel.org/doc/gorman/html/understand/understand006.html
 
 2. The memory of kernel, as opposed to the one used by applications, is never swapped.
+
+3. 宏内核比微内核优秀的一个点：
+	宏内核的新加载的module和内核中本来就存在的部分是一样的，都是通过共享内存以及锁的方式相互传递信息，而微内核需要通过消息传递的方式互相交换信息
+
+4. 插入一个新模块通过insmod命令，lsmod可以查看所有加载的模块，rmmod可以移除一个模块
+	比起insmod和rmmod，modprobe用得更多，直接用modprobe就是插入模块，modprobe -r则是删除模块
+
+5. modinfo 可以查看一个模块的相关信息

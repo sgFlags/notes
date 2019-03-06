@@ -1,0 +1,3 @@
+1. 共有三种不同的设备，block，character，network
+
+2. udev是管理所有linux内核device的程序

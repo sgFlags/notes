@@ -28,3 +28,15 @@ git reflog 可以查看git的命令历史记录
 
 git clone -b 可以克隆对应的分支
 git@github.com:sgFlags/notes.git 用ssh方式访问某个github的repo（此处sgFlags是用户名，notes.git是repo名）
+
+1. git add 命令可以将一个文件进行跟踪，但是如果后面的file已经在.gitignore文件中了，可以使用 -f选项进行强制
+
+2. git rm [file] --cached 命令可以将一个已经跟踪的文件从暂存区中删除（也就是不再跟踪它）
+
+3. git ls-files可以列出所有git working tree正在跟踪的文件
+
+4. git show可以看某个版本的某个文件，如: git show v2.6:src/file.c
+
+5. git diff可以使用--stat参数来只查看不同处简短的统计数据
+
+6. git submodule处理方式：https://www.cnblogs.com/nicksheng/p/6201711.html
