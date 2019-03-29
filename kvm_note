@@ -9,3 +9,4 @@
 6. pid_vnr get pid
 7. get cpu kvm_get_vcpu_by_id
 8. exit number vcpu->stat.exits
+9. qemu-kvm虚拟化初始化及创建过程

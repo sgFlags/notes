@@ -95,4 +95,11 @@ Note that EOF is case sensitive. One can also use another word, such as STOP.
 26. linux动态链接库中不同命令的含义和区别
 libmyfuncs.so.1.0 - The actual shared library.
 libmyfuncs.so.1 - The name included in the soname field of the library. Used by the executable at runtime to find the latest revision of the v. 1myfuncs library.
-libmyfuncs.so - Used by gcc to resolve symbol names in the library at link time when the executable is created. 
+libmyfuncs.so - Used by gcc to resolve symbol names in the library at link time when the executable is created.
+
+27. 挂在回环设备：
+	losetup /dev/loop0 ram.img
+	mount /dev/loop0 /mnt
+
+28. sysfs(/sys目录)讲解：
+	https://www.ibm.com/developerworks/cn/linux/l-cn-sysfs/
