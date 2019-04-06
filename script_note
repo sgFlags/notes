@@ -129,3 +129,6 @@ tr -d 可以删除输入中的某个字符
 -w file	file is writeable?
 -x file	file is executable?
 
+在括号里面加入!既可以表达“否”的含义 
+
+29. 编写/etc/rc.local文件，并使用 systemctl enable rc-local.service 命令可以让系统在启动的时候自动以root权限执行一些命令
