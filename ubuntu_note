@@ -1,0 +1,5 @@
+1. ubuntu合上盖子休眠的修改方式：
+	https://blog.csdn.net/xiaoxiao133/article/details/82847936
+
+2. lenovo安装ubuntu后wlan没有了：
+	lenovo自带的wifi驱动不行，使用rfkill看看哪个wifi模块被硬件block了，之后使用modprobe -d 删除此模块
