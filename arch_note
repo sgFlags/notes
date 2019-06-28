@@ -3,3 +3,6 @@ https://blog.csdn.net/dahailantian1/article/details/78584846
 
 arm中断详解（很棒）：
 https://blog.csdn.net/qq_32677869/article/details/80263174
+
+_stext是kernel源码在内存中的起始地址
+_init_end是kernel源码在内存中的结束地址
