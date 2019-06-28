@@ -6,3 +6,19 @@ qemu-kvm/qemu-system-x86_64 -boot d -hda /home/bai/study/ubuntu.img -cdrom /home
 
 great resource of making a qemu kvm kernel and boot it:
 http://mgalgs.github.io/2015/05/16/how-to-build-a-custom-linux-kernel-for-qemu-2015-edition.html
+
+init脚本写法：
+#!/bin/sh
+
+mount -t proc none /proc
+mount -t sysfs none /sys
+
+mdev -s
+
+exec /sbin/init
+
+inittab写法：
+::respawn:-/bin/sh
+
+initrd制作方式：
+find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../initramfs-busybox-x86.cpio.gz
