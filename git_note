@@ -40,3 +40,5 @@ git@github.com:sgFlags/notes.git 用ssh方式访问某个github的repo（此处s
 5. git diff可以使用--stat参数来只查看不同处简短的统计数据
 
 6. git submodule处理方式：https://www.cnblogs.com/nicksheng/p/6201711.html
+
+7. git checkout -- xxxx（将某个文件恢复）
